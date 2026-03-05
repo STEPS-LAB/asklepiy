@@ -1,7 +1,7 @@
 'use client';
 
 import { forwardRef, type ButtonHTMLAttributes } from 'react';
-import { motion, type HTMLMotionProps } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { buttonHoverVariants, rotateVariants } from '@/lib/motion';
 import type { ButtonProps } from '@/types';
@@ -17,6 +17,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       rightIcon,
       children,
       disabled,
+      onClick,
+      type = 'button',
       ...props
     },
     ref
@@ -76,13 +78,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <motion.button
         ref={ref}
+        type={type}
         className={cn(baseStyles, variantStyles[variant], sizeStyles[size], className)}
         disabled={disabled || isLoading}
         variants={buttonHoverVariants}
         initial="rest"
         whileHover={!isLoading && !disabled ? 'hover' : undefined}
         whileTap={!isLoading && !disabled ? 'tap' : undefined}
-        {...(props as HTMLMotionProps<'button'>)}
+        onClick={onClick}
+        {...(props as Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'>)}
       >
         {/* Shine effect on hover */}
         {!isLoading && !disabled && (
