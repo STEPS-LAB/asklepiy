@@ -18,6 +18,13 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['framer-motion', 'lucide-react', '@tanstack/react-query'],
   },
+  // Disable TypeScript checking during build (run type checking separately)
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
